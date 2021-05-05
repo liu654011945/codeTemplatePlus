@@ -1,2 +1,24 @@
 # 代码生成器
 
+
+
+## 1 使用说明
+
+```properties
+#heima.url=jdbc:mysql://192.168.211.136:3306/leadnews_admin?useUnicode=true&useSSL=false&characterEncoding=utf8
+heima.url=jdbc:mysql://192.168.211.136:3306/leadnews_article?useUnicode=true&useSSL=false&characterEncoding=utf8
+heima.username=root
+heima.password=123456
+heima.driver=com.mysql.jdbc.Driver
+# 配置模块名称 一个模块名即可 例如：admin,user 分别表示 admin微服务,user 微服务
+heima.moduleName=article
+# 父包名 一般设置为两层 使用之后，生成的路径为 com.itheima.user.xxx
+heima.parent=com.itheima
+# controller继承的类的全路径
+heima.superController=com.itheima.core.controller.AbstractCoreController
+# 是否开启controller继承
+heima.superControllerFlag=true
+# 是否开启swagger2生成
+heima.swagger=true
+```
+
