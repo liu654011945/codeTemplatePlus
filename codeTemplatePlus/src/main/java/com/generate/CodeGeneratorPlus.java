@@ -19,7 +19,7 @@ import java.util.*;
  * @version 1.0
  * @date 2020/11/28 22:10
  * @description 标题
- * @package com.itheima
+ * @package
  */
 public class CodeGeneratorPlus {
     static Properties properties = null;
@@ -40,16 +40,34 @@ public class CodeGeneratorPlus {
 
 
     public static void main(String[] args) {
+
+        //是否开启系统工程路径获取 默认是true
+        String property = properties.getProperty("steven.enableProject");
+        //获取到系统工程路径值
+        String projectPath=properties.getProperty("steven.projectPath");
+        //实体属性 Swagger2 注解是否开启
+        String swaggerFlag = properties.getProperty("steven.swagger");
+        String url = properties.getProperty("steven.url");
+        String driver = properties.getProperty("steven.driver");
+        String username = properties.getProperty("steven.username");
+        String password = properties.getProperty("steven.password");
+        //模块名称
+        String moduleName = properties.getProperty("steven.moduleName");
+        //父路径 两层目录
+        String parentPath = properties.getProperty("steven.parent");
+
+        //是否集成corecontroller
+        String superControllerFlag = properties.getProperty("steven.superControllerFlag");
+
+        //继承的coreController的路径
+        String superControllerPath = properties.getProperty("steven.superController");
+
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        String projectPath="";
 
-        String property = properties.getProperty("heima.enableProject");
-        if(Boolean.valueOf(property).booleanValue()){
-            projectPath=properties.getProperty("heima.projectPath");
-        }else {
+        if(!Boolean.valueOf(property).booleanValue()){
             //获取默认的路径
             projectPath = System.getProperty("user.dir");
         }
@@ -59,17 +77,17 @@ public class CodeGeneratorPlus {
         gc.setServiceName("%sService");
 
         // heima.swagger
-        gc.setSwagger2(Boolean.valueOf(properties.getProperty("heima.swagger"))); //实体属性 Swagger2 注解
+        gc.setSwagger2(Boolean.valueOf(swaggerFlag));
 
         mpg.setGlobalConfig(gc);
 
         // 数据源配置 heima.url
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl(properties.getProperty("heima.url"));
-        // dsc.setSchemaName("public");
-        dsc.setDriverName(properties.getProperty("heima.driver"));
-        dsc.setUsername(properties.getProperty("heima.username"));
-        dsc.setPassword(properties.getProperty("heima.password"));
+        dsc.setUrl(url);
+        //dsc.setSchemaName("public");
+        dsc.setDriverName(driver);
+        dsc.setUsername(username);
+        dsc.setPassword(password);
         dsc.setTypeConvert(new MySqlTypeConvert() {
             @Override
             public DbColumnType processTypeConvert(GlobalConfig globalConfig, String fieldType) {
@@ -92,9 +110,10 @@ public class CodeGeneratorPlus {
         // 包配置
         PackageConfig pc = new PackageConfig();
         //模块名称
-        pc.setModuleName(properties.getProperty("heima.moduleName"));
+        pc.setModuleName(moduleName);
         //设置parent 不能设置为空 todo
-        pc.setParent(properties.getProperty("heima.parent"));
+        pc.setParent(parentPath);
+
         //设置包名为pojo
         pc.setEntity("pojo");
 
@@ -111,14 +130,16 @@ public class CodeGeneratorPlus {
 
             @Override
             public void initTableMap(TableInfo tableInfo) {
+                //设置核心feign所在的包路径
+                String coreFeignPath = properties.getProperty("steven.superFeign");
+                String superFeignFlag = properties.getProperty("steven.superFeignFlag");
+                String feignApplicationName = properties.getProperty("steven.application.name");
+
                 //feign的设置
                 Map<String,Object> map = new HashMap<String,Object>();
                 //设置包名 #feign
                 map.put("feignPackage",pc.getParent()+".feign");
-                //设置核心feign所在的包路径
-                String coreFeignPath = properties.getProperty("heima.superFeign");
-                String superFeignFlag = properties.getProperty("heima.superFeignFlag");
-                String feignApplicationName = properties.getProperty("heima.application.name");
+
                 if(Boolean.valueOf(superFeignFlag)){
                     map.put("coreFeignPath",coreFeignPath);
                 }
@@ -198,6 +219,7 @@ public class CodeGeneratorPlus {
         //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
         templateConfig.setEntity("/templates/entity2.java");
         templateConfig.setController("/templates/controller2.java");
+        //设置XML为null
         templateConfig.setXml(null);
 
         mpg.setTemplate(templateConfig);
@@ -216,8 +238,8 @@ public class CodeGeneratorPlus {
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         // 设置controller的父类全路径
-        if(Boolean.valueOf(properties.getProperty("heima.superControllerFlag"))) {
-            strategy.setSuperControllerClass(properties.getProperty("heima.superController"));
+        if(Boolean.valueOf(superControllerFlag)) {
+            strategy.setSuperControllerClass(superControllerPath);
         }
         // 写于父类中的公共字段
         //strategy.setSuperEntityColumns("id");

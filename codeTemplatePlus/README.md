@@ -4,32 +4,33 @@
 
 ## 1 使用说明
 
+在resource目录下设置application.properties如下：可根据自己的需求进行设置
+
 ```properties
-heima.url=jdbc:mysql://localhost:3306/mp?useUnicode=true&useSSL=false&characterEncoding=utf8
-#heima.url=jdbc:mysql://192.168.211.136:3306/leadnews_search?useUnicode=true&useSSL=false&characterEncoding=utf8
-heima.username=root
-heima.password=123456
-heima.driver=com.mysql.jdbc.Driver
+steven.url=jdbc:mysql://localhost:3306/mp?useUnicode=true&useSSL=false&characterEncoding=utf8
+steven.username=root
+steven.password=123456
+steven.driver=com.mysql.jdbc.Driver
 # 配置模块名称 一个模块名即可 例如：admin,user 分别表示 admin微服务,user 微服务
-heima.moduleName=search
-# 父包名 一般设置为两层 使用之后，生成的路径为 com.itheima.user.xxx
-heima.parent=com.itheima
+steven.moduleName=admin
+# 父包名 一般设置为两层 使用之后，生成的路径为 com.steven.user.xxx
+steven.parent=com.steven
 # controller继承的类的全路径
-heima.superController=com.itheima.core.controller.AbstractCoreController
+steven.superController=com.steven.core.controller.AbstractCoreController
 # 是否开启controller继承
-heima.superControllerFlag=true
+steven.superControllerFlag=true
 # 是否开启swagger2生成
-heima.swagger=true
+steven.swagger=true
 
 #生成feign
-heima.superFeign=com.itheima.core.feign.CoreFeign
+steven.superFeign=com.steven.core.feign.CoreFeign
 #是否开启生成Feign接口
-heima.superFeignFlag=true
+steven.superFeignFlag=true
 # 设置微服务的名称
-heima.application.name=leadnews-search
+steven.application.name=leadnews-admin
 # 系统工程路径 请填写你自己所在的代码生成器所在的工程目录
-heima.projectPath=C:\\Users\\admin\\IdeaProjects\\codeTemplatePlus
-# 是否开启系统工程路径获取
-heima.enableProject=true
+steven.projectPath=C:\\xxx
+# 是否开启系统工程路径获取 默认值为false
+steven.enableProject=false
 ```
 
