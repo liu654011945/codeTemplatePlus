@@ -191,6 +191,24 @@ public class CodeGeneratorPlus {
             }
         });
 
+
+        //自定义javaApplication模板生成
+        String appplicationTemplateFilePath="/templates/application.java.ftl";
+
+        focList.add(new FileOutConfig(appplicationTemplateFilePath) {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                String parent = pc.getParent();
+                String[] split = parent.split("\\.");
+
+                //生成目录和类  #feign
+                String str = pc.getModuleName();
+                String s = str.substring(0, 1).toUpperCase() + str.substring(1);
+                return finalProjectPath+"/src/main/java/"
+                        +split[0]+"/"+split[1]+"/"+s+"Application"+StringPool.DOT_JAVA;
+            }
+        });
+
         /*
         cfg.setFileCreate(new IFileCreate() {
             @Override

@@ -34,3 +34,9 @@ steven.projectPath=C:\\xxx
 steven.enableProject=false
 ```
 
+
+
+各配置意义如下图所示：
+
+![1620460681613](images/1620460681613.png)
+
