@@ -148,6 +148,9 @@ public class CodeGeneratorPlus {
                 //设置核心接口类名
                 map.put("coreFeignClassName",coreFeignPath.substring(coreFeignPath.lastIndexOf(".")+1));
 
+                //设置parent包名 指定给application模板来使用
+                map.put("applicationPackage",parentPath);
+
 
 
                 this.setMap(map);
