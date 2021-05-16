@@ -51,6 +51,11 @@ public class CodeGeneratorPlus {
         String driver = properties.getProperty("steven.driver");
         String username = properties.getProperty("steven.username");
         String password = properties.getProperty("steven.password");
+
+        //设置表前缀
+        String prefixFlagBoolean = properties.getProperty("steven.prefixFlag");
+        String prefixTable = properties.getProperty("steven.prefix");
+
         //模块名称
         String moduleName = properties.getProperty("steven.moduleName");
         //父路径 两层目录
@@ -270,7 +275,9 @@ public class CodeGeneratorPlus {
         strategy.setControllerMappingHyphenStyle(false);
 
         //设置表前缀
-        strategy.setTablePrefix("tb_");
+        if(Boolean.valueOf(prefixFlagBoolean)){
+            strategy.setTablePrefix(prefixTable);
+        }
         mpg.setStrategy(strategy);
         mpg.execute();
     }

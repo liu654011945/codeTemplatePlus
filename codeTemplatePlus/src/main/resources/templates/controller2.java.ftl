@@ -5,6 +5,9 @@ import ${package.Entity}.${entity};
 import ${package.Service}.${table.serviceName};
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
+<#if swagger2>
+import io.swagger.annotations.Api;
+</#if>
 <#if restControllerStyle>
 import org.springframework.web.bind.annotation.RestController;
 <#else>
@@ -20,6 +23,9 @@ import ${superControllerClassPackage};
 * @author ${author}
 * @since ${date}
 */
+<#if swagger2>
+@Api(value="${table.comment!}",tags = "${table.controllerName}")
+</#if>
 @RestController
 @RequestMapping("/<#if controllerMappingHyphenStyle??>${controllerMappingHyphen}<#else>${table.entityPath}</#if>")
 <#if superControllerClass??>
