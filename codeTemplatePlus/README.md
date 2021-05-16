@@ -32,6 +32,11 @@ steven.application.name=leadnews-admin
 steven.projectPath=C:\\xxx
 # 是否开启系统工程路径获取 默认值为false
 steven.enableProject=false
+
+# 是否去除表前缀 例如 表：tb_user 对应 POJO--->TbUser 如果去除，生成之后则变成 User 默认不开启
+steven.prefixFlag=false
+#去除的前缀值
+steven.prefix=tb_
 ```
 
 
@@ -39,4 +44,22 @@ steven.enableProject=false
 各配置意义如下图所示：
 
 ![1620460681613](images/1620460681613.png)
+
+
+
+
+
+## 2 bug修复记录
+
+
+
+1 添加swagger在controller
+
+
+
+2 添加可以设置去除前缀
+
+![1621144823963](images/1621144823963.png)
+
+
 
